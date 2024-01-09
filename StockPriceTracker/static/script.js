@@ -33,6 +33,21 @@ $(document).ready(function () {
         }
         $('new-ticker').val('');
         updatePrices();
+    });
+
+    $('#tickers-grid').on('click', '.remove-btn', function () {
+        var tickerToRemove = $(this).data('ticker');
+        tickers = tickers.filter(t => t!== tickerToRemove);
+        localStorage.setItem('tickers', JSON.stringify(tickers))
+        $('#${tickerToRemove'.remove())
+
     })
 
+    startUpdateCycle();
+
 })
+
+function addTickerToGrid(ticker) {
+    $('#ticker-grid').append('<div id="${ticker}" class="stock-box"><h2>${ticker}</h2><p id="!{ticker}-price"></p><p id="${ticker}-pct"></p><button class="remove-btn" data-ticker="${ticker}">Remove</button></div>')
+
+}
