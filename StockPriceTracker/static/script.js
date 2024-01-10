@@ -48,6 +48,6 @@ $(document).ready(function () {
 })
 
 function addTickerToGrid(ticker) {
-    $('#ticker-grid').append('<div id="${ticker}" class="stock-box"><h2>${ticker}</h2><p id="!{ticker}-price"></p><p id="${ticker}-pct"></p><button class="remove-btn" data-ticker="${ticker}">Remove</button></div>')
+    $('#ticker-grid').append(`<div id="${ticker}" class="stock-box"><h2>${ticker}</h2><p id="!{ticker}-price"></p><p id="${ticker}-pct"></p><button class="remove-btn" data-ticker="${ticker}">Remove</button></div>`)
 
 }
