@@ -1,4 +1,4 @@
-import flet
+import flet 
 from flet import *
 import time
 import random
@@ -7,9 +7,32 @@ import random
 class GenerateGrid(UserControl):
     def __init__(self, difficulty):
         self.grid = Column(opacity=0, animate_opacity=300)
+        self.correct: int = 0
+        self.incorrect: int = 0
         self.blue_titles: int = 0
         self.difficulty: int = difficulty
         super().__init__()
+
+    def show_color(self, e):
+                                
+        if e.control.data == "#4cbbb5":
+            e.control.bgcolor = "#4cbbb5"
+            e.control.opacity = 1
+            e.control.update()
+
+            self.correct += 1
+            e.page.update()
+
+        else: #red color of the wrong boxes
+            e.control.bgcolor = "#982c33"
+            e.control.opacity = 1
+            e.control.update()
+
+            self.incorrect += 1
+            e.page.update()
+        pass
+
+
 
     def build(self):
         rows: list = [
@@ -20,7 +43,7 @@ class GenerateGrid(UserControl):
                         width=54,
                         height=54,
                         animate=300,
-                        on_click=None,  #change later
+                        on_click=lambda e: self.show_color(e),
                     )
                     for _ in range(5)
                 ],
