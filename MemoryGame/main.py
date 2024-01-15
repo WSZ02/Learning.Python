@@ -14,7 +14,7 @@ class GenerateGrid(UserControl):
         super().__init__()
 
     def show_color(self, e):
-                                
+
         if e.control.data == "#4cbbb5":
             e.control.bgcolor = "#4cbbb5"
             e.control.opacity = 1
@@ -90,6 +90,8 @@ def main(page: Page):
 
     def start_game(e, level):
 
+        result.value = ""
+
         grid = level
         page.controls.insert(
             3, grid
@@ -115,7 +117,38 @@ def main(page: Page):
                 ): #if container color is blue, then
                     container.bgcolor = "#5c443b"
                     container.update()
+        #Updates every time user clicks a box
+        while True:
+            if grid.correct == grid.blue_titles:
+                grid.grid.disabled: bool = True
+                grid.grid.update()
 
+                result.value: str = "You got all tiles"
+                result.color ="green700"
+                result.update()
+
+                time.sleep(2)
+                result.value = ""
+                page.controls.remove(
+                    grid
+                )
+                page.update()
+
+                #increasing difficulty
+                difficulty = grid.difficulty + 1
+                start_game(e, GenerateGrid(difficulty))
+                break
+
+            if grid.incorrect == 3:
+                result.value = "You run out of tries! Play again."
+                result.color = "red700"
+                result.update()
+                time.sleep(2)
+                page.controls.remove(grid)
+                page.update()
+                start_button.disabled = False
+                start_button.update()
+                break
     page.add(
         Row(
             alignment=MainAxisAlignment.CENTER,
